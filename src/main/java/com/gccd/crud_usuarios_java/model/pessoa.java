@@ -1,4 +1,4 @@
-package com.playerrank.crus_usuarios_java.model;
+package com.gccd.crud_usuarios_java.model;
 
 import java.util.Date;
 
