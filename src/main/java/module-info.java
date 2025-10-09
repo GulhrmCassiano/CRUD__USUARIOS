@@ -1,4 +1,4 @@
-module com.playerrank.crus_usuarios_java {
+module com.gccd.crud_usuarios_java {
     requires javafx.controls;
     requires javafx.fxml;
 
