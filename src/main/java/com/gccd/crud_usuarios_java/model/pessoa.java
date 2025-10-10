@@ -22,7 +22,7 @@ public class pessoa {
         this.endereco = "";
     }
 
-    public pessoa( String nome, String sobrenome, Date dataNasc, int telefone, char sexo, String endereco){
+    public pessoa(String nome, String sobrenome, Date dataNasc, int telefone, String endereco){
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNasc;
@@ -59,8 +59,8 @@ public class pessoa {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
-        this.telefone = telefone;
+    public void setTelefone(String telefone) {
+        this.telefone = Integer.parseInt(telefone);
     }
 
     public char getSexo() {

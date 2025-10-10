@@ -6,6 +6,8 @@ module com.gccd.crud_usuarios_java {
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.dotenv;
+    requires java.sql;
 
     opens com.gccd.crud_usuarios_java to javafx.fxml;
     exports com.gccd.crud_usuarios_java;

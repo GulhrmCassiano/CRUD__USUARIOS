@@ -1,24 +1,42 @@
 package com.gccd.crud_usuarios_java.model;
-
 import java.util.Date;
 
 public class Usuario extends pessoa{
+    private int id;
     private String login;
     private String senha;
     private String email;
 
     public Usuario() {
         super();
+        this.id = 0;
         this.login = "";
         this.senha = "";
         this.email = "";
     }
 
-    public Usuario(String nome, String sobrenome, Date dataNasc, int telefone, char sexo, String endereco, String login, String senha, String email) {
-        super(nome, sobrenome, dataNasc, telefone, sexo, endereco);
+    public Usuario(String nome, Date dataNasc) {
+        super();
+        this.id = 0;
+        this.login = "";
+        this.senha = "";
+        this.email = "";
+    }
+
+    public Usuario(String nome, String sobrenome, Date dataNasc, String telefone, char sexo, String endereco, String login, String senha, String email) {
+        super(nome, sobrenome,dataNasc, sexo, endereco);
+        this.id = 0;
         this.login = login;
         this.senha = senha;
         this.email = email;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getId(){
+        return this.id;
     }
 
     public String getLogin() {
@@ -45,7 +63,4 @@ public class Usuario extends pessoa{
         return senha.equals(this.senha);
     }
 
-    public String info(){
-        return "Dados do Usuário: " + super.info() + this.email + " | Username: " + this.login;
-    }
 }
