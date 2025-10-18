@@ -2,12 +2,16 @@ package com.gccd.crud_usuarios_java.controller;
 
 import com.gccd.crud_usuarios_java.model.Usuario;
 import com.gccd.crud_usuarios_java.service.UsuarioService;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.time.ZoneId;
+import java.util.Date;
 
 public class UserFormController {
 
@@ -24,7 +28,7 @@ public class UserFormController {
     @FXML
     private TextField telefoneField;
     @FXML
-    private DatePicker dataNascimentoPiker;
+    private DatePicker dataNascimentoPicker;
     @FXML
     private ChoiceBox<String> sexoChoiceBox;
     @FXML
@@ -35,22 +39,55 @@ public class UserFormController {
     private UsuarioService usuarioService;
 
     public void initialize(){
-
+        usuarioService = new UsuarioService();
+        sexoChoiceBox.setItems(FXCollections.observableArrayList("Maculino","Feminino"));
     }
 
-    public void setStage(){
+    public void setStage(Stage stage){    }
+    public void setUsuario(Usuario usuario){
+        this.usuario = usuario;
 
+        if (usuario != null){
+            titleLabel.setText("Editar Usuario");
+            nomeField.setText(usuario.getNome());
+            sobrenomeField.setText(usuario.getSobrenome());
+            emailField.setText(usuario.getEmail());
+            loginField.setText(usuario.getLogin());
+           if (usuario.getDataNascimento() != null){
+               dataNascimentoPicker.setValue(usuario.getDataNascimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+           }
+           telefoneField.setText(usuario.getTelefone());
+           sexoChoiceBox.setValue(usuario.getSexo() == 'M'?"Masculino":"Feminino");
+           enderecoField.setText(usuario.getEndereco());
+        }else {
+            titleLabel.setText("Adiciona Usuario");
+        }
     }
-
-    public void setUsuario(){
-
-    }
-
     @FXML
     public void handleSalvar(){
-
+        boolean isNew = (usuario == null);
+        if(isNew){
+            usuario = new Usuario();
+        }
+        usuario.setNome(nomeField.getText());
+        usuario.setSobrenome(sobrenomeField.getText());
+        usuario.setEmail(emailField.getText());
+        usuario.setLogin(loginField.getText());
+        if (dataNascimentoPicker.getValue() != null){
+            usuario.setDataNascimento(Date.from(dataNascimentoPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        }
+        usuario.setTelefone(telefoneField.getText());
+        usuario.setEndereco(enderecoField.getText ());
+        if (sexoChoiceBox.getValue() != null ){
+            usuario.setSexo(sexoChoiceBox.getValue().equals("MAsculino")?'m':'F');
+        }
+        if (isNew){
+            usuarioService.adicionarUsuario(usuario);
+        }else {
+            usuarioService.atualizarUsuario(usuario);
+        }
     }
-
 
 
 }

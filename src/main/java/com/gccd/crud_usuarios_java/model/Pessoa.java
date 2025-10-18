@@ -1,28 +1,42 @@
 package com.gccd.crud_usuarios_java.model;
-
+import java.time.ZoneId;
 import java.util.Date;
+import java.time.LocalDate;
+import java.time.Period;
 
-public class pessoa {
+public class Pessoa {
 
+    //ATRIBUTOS COM VISIBILIDADE PRIVADA
     private String nome;
     private String sobrenome;
     private Date dataNascimento;
     private int idade;
-    private int telefone;
+    private String telefone;
     private char sexo;
     private String endereco;
 
-    public pessoa(){
+    //CONSTRUTORES
+    public Pessoa() {
         this.nome = "";
         this.sobrenome = "";
         this.idade = 0;
         this.dataNascimento = new Date();
-        this.telefone = 0;
+        this.telefone = "";
         this.sexo = ' ';
         this.endereco = "";
     }
 
-    public pessoa(String nome, String sobrenome, Date dataNasc, int telefone, String endereco){
+    public Pessoa(String nome, Date dataNascimento) {
+        this.nome = nome;
+        this.sobrenome = "";
+        this.idade = 0;
+        this.dataNascimento = dataNascimento;
+        this.telefone = "";
+        this.sexo = ' ';
+        this.endereco = "";
+    }
+
+    public Pessoa(String nome, String sobrenome, Date dataNasc, String telefone, char sexo, String endereco) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNasc;
@@ -30,6 +44,7 @@ public class pessoa {
         this.sexo = sexo;
         this.endereco = endereco;
     }
+    //GETTES E SETTERS (ENCAPSULAMENTO)
 
     public String getNome() {
         return nome;
@@ -55,12 +70,13 @@ public class pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
+
     public void setTelefone(String telefone) {
-        this.telefone = Integer.parseInt(telefone);
+        this.telefone = telefone;
     }
 
     public char getSexo() {
@@ -79,22 +95,19 @@ public class pessoa {
         this.endereco = endereco;
     }
 
-    public int getIdade(){
-        Date currentDate = new Date();
-        this.idade = currentDate.getYear() - this.dataNascimento.getYear();
-        return this.idade;
+
+    public int getIdade() {
+
+        return idade;
     }
 
-    public String getFullSexo(){
-        if (this.sexo == 'M' || this.sexo == 'm')
-            return "Masculino";
-        else if(this.sexo == 'F' || this.sexo == 'f')
-            return "Feminino";
-        else
-            return "";
+    public void setIdade(java.sql.Date idade){
+        if (this.dataNascimento == null) {
+            this.idade  = 0;
+        }
+        LocalDate dataNasc = dataNascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dataAtual = LocalDate.now();
+        this.idade = Period.between(dataNasc,dataAtual).getYears();
     }
 
-    public String info(){
-        return nome + " " + sobrenome + " | " + getIdade() + " anos | " + telefone + " | " + getFullSexo() + " | " + endereco;
-    }
 }

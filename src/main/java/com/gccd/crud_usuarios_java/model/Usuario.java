@@ -1,7 +1,7 @@
 package com.gccd.crud_usuarios_java.model;
 import java.util.Date;
 
-public class Usuario extends pessoa{
+public class Usuario extends Pessoa{
     private int id;
     private String login;
     private String senha;
@@ -16,7 +16,7 @@ public class Usuario extends pessoa{
     }
 
     public Usuario(String nome, Date dataNasc) {
-        super();
+        super(nome, dataNasc);
         this.id = 0;
         this.login = "";
         this.senha = "";
@@ -24,7 +24,7 @@ public class Usuario extends pessoa{
     }
 
     public Usuario(String nome, String sobrenome, Date dataNasc, String telefone, char sexo, String endereco, String login, String senha, String email) {
-        super(nome, sobrenome,dataNasc, sexo, endereco);
+        super(nome, sobrenome, dataNasc, telefone, sexo, endereco);
         this.id = 0;
         this.login = login;
         this.senha = senha;
